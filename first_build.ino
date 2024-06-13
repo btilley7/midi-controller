@@ -107,6 +107,12 @@ void printButtonState(int num){
   delay(500);
 }
 
+void clearButtonStates(){
+  button1_state = 0;
+  button2_state = 0;
+  button3_state = 0;
+  button4_state = 0;
+};
 
 void ledOn(int pin){
   ledAllOff();
@@ -148,56 +154,107 @@ void loop() {
   // IF THE BUTTON WAS PRESSED THIS LOOP:
   if ( button1.fell() ) {
       if (button1_state == 0){
-        MIDI.sendControlChange(0, 0, 1);
+        clearButtonStates();
 
+        MIDI.sendControlChange(0, 0, 1);
         MIDI.sendControlChange(27, 127, 1);
 
         MIDI.sendProgramChange(0, 1);
         MIDI.sendProgramChange(0, 2);
         
         ledAllOff();
-        ledColor(4, 1, 1, 1);
+        ledColor(4, 0, 1, 1);
 
         button1_state = 1;
-        delay(1000);
+        delay(100);
 
       } else {
         MIDI.sendControlChange(27, 0, 1);
 
-
         ledAllOff();
         ledColor(4, 1, 0, 0);
         button1_state = 0;
-        delay(1000);
+        delay(100);
       }
-      
-
 
       delay(100);
 
   } else if ( button2.fell() ){
-      
-      MIDI.sendControlChange(0, 0, 1);
-      MIDI.sendProgramChange(1, 1);
-      MIDI.sendProgramChange(1, 2);
-      ledOn(7);
-      delay(100);
+     
+      if (button2_state == 0){
+        clearButtonStates();
+
+        MIDI.sendControlChange(0, 0, 1);
+        MIDI.sendControlChange(27, 127, 1);
+
+        MIDI.sendProgramChange(1, 1);
+        MIDI.sendProgramChange(1, 2);
+        
+        ledAllOff();
+        ledColor(7, 0, 1, 1);
+
+        button2_state = 1;
+        delay(100);
+
+      } else {
+        MIDI.sendControlChange(27, 0, 1);
+
+        ledAllOff();
+        ledColor(7, 1, 0, 0);
+        button2_state = 0;
+        delay(100);
+      }
 
   } else if ( button3.fell() ){
       
-      MIDI.sendControlChange(0, 0, 1);
-      MIDI.sendProgramChange(3, 1);
-      MIDI.sendProgramChange(2, 2);
-      ledOn(10);
-      delay(100);
+      if (button3_state == 0){
+        clearButtonStates();
+
+        MIDI.sendControlChange(0, 0, 1);
+        MIDI.sendControlChange(27, 127, 1);
+
+        MIDI.sendProgramChange(3, 1);
+        MIDI.sendProgramChange(2, 2);
+        
+        ledAllOff();
+        ledColor(10, 0, 1, 1);
+
+        button3_state = 1;
+        delay(100);
+
+      } else {
+        MIDI.sendControlChange(27, 0, 1);
+
+        ledAllOff();
+        ledColor(10, 1, 0, 0);
+        button3_state = 0;
+        delay(100);
+      }
 
   } else if ( button4.fell() ){
       
-      MIDI.sendControlChange(0, 0, 1);
-      MIDI.sendProgramChange(4, 1);
-      MIDI.sendProgramChange(3, 2);
-      ledOn(13);
-      delay(100);
+      if (button4_state == 0){
+        clearButtonStates();
 
+        MIDI.sendControlChange(0, 0, 1);
+        MIDI.sendControlChange(27, 127, 1);
+
+        MIDI.sendProgramChange(4, 1);
+        MIDI.sendProgramChange(3, 2);
+        
+        ledAllOff();
+        ledColor(13, 0, 1, 1);
+
+        button4_state = 1;
+        delay(100);
+
+      } else {
+        MIDI.sendControlChange(27, 0, 1);
+
+        ledAllOff();
+        ledColor(13, 1, 0, 0);
+        button4_state = 0;
+        delay(100);
+      }
   }
 }
